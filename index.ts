@@ -1,16 +1,18 @@
 import * as core from '@actions/core';
+
+import { createWriteStream, existsSync } from 'fs';
+
+import { env } from 'process';
+import { exec } from 'child_process';
 import { promises as fs } from 'fs';
-import { existsSync, createWriteStream } from 'fs';
 import https from 'https';
 import path from 'path';
 import util from 'util';
-import { exec } from 'child_process';
-import { env } from 'process';
 
 const asyncExec = util.promisify(exec);
 const nugetFileName = env['TEMP'] + '\\nuget.exe';
 
-const timestampUrl = 'http://timestamp.digicert.com';
+const timestampUrl = 'http://timestamp.sectigo.com';
 
 const signtoolFileExtensions = [
     '.dll', '.exe', '.sys', '.vxd',
